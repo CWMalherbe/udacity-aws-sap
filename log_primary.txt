@@ -1,0 +1,95 @@
+[ec2-user@ip-10-1-10-251 ~]$ mysql -h udacity.c6tm0rqsgfnm.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 36
+Server version: 8.0.28 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> CREATE TABLE Persons (
+    ->     PersonID int AUTO_INCREMENT PRIMARY KEY,
+    ->     Name VARCHAR(20) NOT NULL,
+    ->     Age int,
+    ->     Address VARCHAR(100)
+    -> );
+ERROR 1046 (3D000): No database selected
+MySQL [(none)]> use udacity
+ERROR 1049 (42000): Unknown database 'udacity'
+MySQL [(none)]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+MySQL [(none)]> CREATE DATABASE udacity;
+Query OK, 1 row affected (0.02 sec)
+
+MySQL [(none)]> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| udacity            |
++--------------------+
+5 rows in set (0.00 sec)
+
+MySQL [(none)]> USE udacity;
+Database changed
+MySQL [udacity]> CREATE TABLE Persons (
+    ->     PersonID int AUTO_INCREMENT PRIMARY KEY,
+    ->     Name VARCHAR(20) NOT NULL,
+    ->     Age int,
+    ->     Address VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+MySQL [udacity]> DESCRIBE Persons
+    -> ;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| PersonID | int          | NO   | PRI | NULL    | auto_increment |
+| Name     | varchar(20)  | NO   |     | NULL    |                |
+| Age      | int          | YES  |     | NULL    |                |
+| Address  | varchar(100) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+MySQL [udacity]> INSERT INTO Persons VALUES ('John', 34, '11 Jelly Baby Lane, Amazonia');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MySQL [udacity]> INSERT INTO Persons (Name,Age,Address) VALUES ('John', 34, '11 Jelly Baby Lane, Amazonia');
+Query OK, 1 row affected (0.01 sec)
+
+MySQL [udacity]> SELECT * FROM Persons;
++----------+------+------+------------------------------+
+| PersonID | Name | Age  | Address                      |
++----------+------+------+------------------------------+
+|        1 | John |   34 | 11 Jelly Baby Lane, Amazonia |
++----------+------+------+------------------------------+
+1 row in set (0.00 sec)
+
+MySQL [udacity]> UPDATE Persons SET Name = 'John Peter' WHERE PersonID = 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MySQL [udacity]> SELECT * FROM Persons;
++----------+------------+------+------------------------------+
+| PersonID | Name       | Age  | Address                      |
++----------+------------+------+------------------------------+
+|        1 | John Peter |   34 | 11 Jelly Baby Lane, Amazonia |
++----------+------------+------+------------------------------+
+1 row in set (0.00 sec)
+
+MySQL [udacity]> 

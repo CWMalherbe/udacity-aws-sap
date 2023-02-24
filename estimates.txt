@@ -1,0 +1,23 @@
+Availability Estimate
+
+1. Minimum RTO for a Single AZ Outage
+If a single Availability goes down and the RDS database has been configured with multi-az, fail-over happens autiomatically, it can take a few minutes depending 
+on the size of the database.
+
+2. Minimum RTO for a single region outage
+RTO - Recovery time objective indicates the time objective we are striving for to get the database back online 
+and operational.
+Fail-over does not happen automatically in the case of a regional outage.
+Support staff must identify the cause of the outage when notified and then 
+promote the secondary instance to be the new master, and then route the  database 
+traffic to the new endpoint
+
+
+3. Minimum RPO for a single AZ outage
+It only takes a few minutes to fail over to another AZ, so a few minutes of data will be lost.
+
+4. Minimum RPO for a single region outage
+The Recovery Point Objective describes the volume of data that may be lost due to the outage.
+The Recovery Point Objective depends on the backup frequency that is configured.
+If we set up an RDS database with automatic backups enabled, the RPO will be based on 
+how often data is backed up. If we set up a backup every 4 hours, the minimum RPO will be 4 hours.
